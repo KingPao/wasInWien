@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>WasInWien</title>
+<style>
+  :root { --bg:#12141a; --card:#1c1f28; --accent:#ff5470; --text:#eef0f5; --muted:#8b8f9e; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; background:var(--bg); color:var(--text); }
+  header { display:flex; align-items:center; gap:16px; padding:20px 28px; border-bottom:1px solid #262a35; flex-wrap:wrap; }
+  header h1 { font-size:20px; margin:0; }
+  select, button { background:var(--card); color:var(--text); border:1px solid #2b2f3a; border-radius:8px; padding:8px 12px; font-size:14px; cursor:pointer; }
+  .view-toggle button.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .filters { display:flex; gap:8px; padding:12px 28px; flex-wrap:wrap; }
+  .filters button { font-size:12px; padding:6px 10px; }
+  .filters button.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+  main { padding: 8px 28px 40px; }
+  .section-title { font-size:14px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin:24px 0 12px; }
+  .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:16px; }
+  .tile { background:var(--card); border-radius:12px; overflow:hidden; text-decoration:none; color:var(--text); display:flex; flex-direction:column; border:1px solid #262a35; transition:transform .15s; }
+  .tile:hover { transform:translateY(-2px); border-color:var(--accent); }
+  .tile img { width:100%; height:120px; object-fit:cover; background:#2b2f3a; }
+  .tile .body { padding:12px 14px; }
+  .tile .cat { font-size:11px; color:var(--accent); text-transform:uppercase; letter-spacing:0.05em; }
+  .tile .title { font-size:15px; margin:6px 0 4px; line-height:1.3; }
+  .tile .meta { font-size:12px; color:var(--muted); }
+  .badge-review { font-size:10px; background:#3a2f1c; color:#e0b04d; padding:2px 6px; border-radius:4px; margin-left:6px; }
+  .empty { color:var(--muted); padding:40px 0; text-align:center; }
+
+  #calendar { display:none; }
+  .cal-grid { display:grid; grid-template-columns: repeat(7, 1fr); gap:6px; margin-top:10px; }
+  .cal-day-name { font-size:11px; color:var(--muted); text-align:center; padding:4px; }
+  .cal-cell { background:var(--card); border-radius:8px; min-height:80px; padding:6px; font-size:12px; border:1px solid #262a35; }
+  .cal-cell .num { color:var(--muted); font-size:11px; }
+  .cal-cell .ev { display:block; margin-top:4px; color:var(--text); text-decoration:none; background:#262a35; border-radius:4px; padding:2px 4px; font-size:11px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .cal-cell .ev:hover { background:var(--accent); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎪 WasInWien</h1>
+  <select id="citySelect"></select>
+  <div class="view-toggle">
+    <button id="btnTiles" class="active">Kacheln</button>
+    <button id="btnCalendar">Kalender</button>
+  </div>
+  <span id="meta" style="color:var(--muted); font-size:12px; margin-left:auto;"></span>
+</header>
+
+<div class="filters" id="filters"></div>
+
+<main>
+  <div id="tiles"></div>
+  <div id="calendar"></div>
+</main>
+
+<script>
+let allEvents = [];
+let activeCategory = null;
+
+async function loadCities() {
+  const res = await fetch('/data/cities.json').catch(() => null);
+  let cities = [];
+  try { cities = await res.json(); } catch (e) { cities = []; }
+  const select = document.getElementById('citySelect');
+  select.innerHTML = '';
+  if (cities.length === 0) {
+    select.innerHTML = '<option>Keine Stadt gefunden</option>';
+    return;
+  }
+  cities.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c.file;
+    opt.textContent = c.label;
+    select.appendChild(opt);
+  });
+  select.onchange = () => loadEvents(select.value);
+  loadEvents(select.value);
+}
+
+async function loadEvents(file) {
+  const res = await fetch('/data/' + file);
+  const data = await res.json();
+  allEvents = data.events || [];
+  document.getElementById('meta').textContent =
+    `${allEvents.length} Events · aktualisiert ${new Date(data.generated_at).toLocaleString('de-AT')}`;
+  buildFilters();
+  render();
+}
+
+function buildFilters() {
+  const cats = [...new Set(allEvents.map(e => e.category))].sort();
+  const box = document.getElementById('filters');
+  box.innerHTML = '';
+  const allBtn = document.createElement('button');
+  allBtn.textContent = 'Alle';
+  allBtn.className = activeCategory === null ? 'active' : '';
+  allBtn.onclick = () => { activeCategory = null; buildFilters(); render(); };
+  box.appendChild(allBtn);
+  cats.forEach(cat => {
+    const b = document.createElement('button');
+    b.textContent = cat;
+    b.className = activeCategory === cat ? 'active' : '';
+    b.onclick = () => { activeCategory = cat; buildFilters(); render(); };
+    box.appendChild(b);
+  });
+}
+
+function filtered() {
+  return activeCategory ? allEvents.filter(e => e.category === activeCategory) : allEvents;
+}
+
+function render() {
+  renderTiles();
+  renderCalendar();
+}
+
+function groupByBucket(events) {
+  const now = new Date();
+  const startToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const endWeek = new Date(startToday); endWeek.setDate(endWeek.getDate() + 7);
+  const buckets = { 'Heute': [], 'Diese Woche': [], 'Später': [], 'Ohne Datum': [] };
+  events.forEach(e => {
+    if (!e.date) { buckets['Ohne Datum'].push(e); return; }
+    const d = new Date(e.date);
+    if (d.toDateString() === now.toDateString()) buckets['Heute'].push(e);
+    else if (d < endWeek) buckets['Diese Woche'].push(e);
+    else buckets['Später'].push(e);
+  });
+  return buckets;
+}
+
+function tileHtml(e) {
+  const img = e.image ? `<img src="${e.image}" loading="lazy" onerror="this.style.display='none'">` : '';
+  const dateStr = e.date ? new Date(e.date).toLocaleString('de-AT', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'}) : 'Datum unklar';
+  const review = e.needs_review ? '<span class="badge-review">prüfen</span>' : '';
+  return `<a class="tile" href="${e.link}" target="_blank">
+    ${img}
+    <div class="body">
+      <div class="cat">${e.category}${review}</div>
+      <div class="title">${escapeHtml(e.title)}</div>
+      <div class="meta">${dateStr} · ${e.source_name}</div>
+    </div>
+  </a>`;
+}
+
+function renderTiles() {
+  const buckets = groupByBucket(filtered());
+  const box = document.getElementById('tiles');
+  box.innerHTML = '';
+  let any = false;
+  for (const [label, events] of Object.entries(buckets)) {
+    if (events.length === 0) continue;
+    any = true;
+    box.innerHTML += `<div class="section-title">${label} (${events.length})</div>
+      <div class="grid">${events.map(tileHtml).join('')}</div>`;
+  }
+  if (!any) box.innerHTML = '<div class="empty">Keine Events gefunden.</div>';
+}
+
+function renderCalendar() {
+  const box = document.getElementById('calendar');
+  const events = filtered().filter(e => e.date);
+  const now = new Date();
+  const year = now.getFullYear(), month = now.getMonth();
+  const firstDay = new Date(year, month, 1);
+  const startOffset = (firstDay.getDay() + 6) % 7; // Montag = 0
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  const dayNames = ['Mo','Di','Mi','Do','Fr','Sa','So'];
+  let html = `<div class="cal-grid">` + dayNames.map(d => `<div class="cal-day-name">${d}</div>`).join('');
+  for (let i = 0; i < startOffset; i++) html += `<div class="cal-cell"></div>`;
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dayEvents = events.filter(e => {
+      const d = new Date(e.date);
+      return d.getDate() === day && d.getMonth() === month && d.getFullYear() === year;
+    });
+    html += `<div class="cal-cell"><div class="num">${day}</div>` +
+      dayEvents.slice(0, 4).map(e => `<a class="ev" href="${e.link}" target="_blank" title="${escapeHtml(e.title)}">${escapeHtml(e.title)}</a>`).join('') +
+      (dayEvents.length > 4 ? `<div class="meta">+${dayEvents.length - 4} mehr</div>` : '') +
+      `</div>`;
+  }
+  html += `</div>`;
+  box.innerHTML = html;
+}
+
+function escapeHtml(s) {
+  return (s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+document.getElementById('btnTiles').onclick = () => {
+  document.getElementById('tiles').style.display = 'block';
+  document.getElementById('calendar').style.display = 'none';
+  document.getElementById('btnTiles').classList.add('active');
+  document.getElementById('btnCalendar').classList.remove('active');
+};
+document.getElementById('btnCalendar').onclick = () => {
+  document.getElementById('tiles').style.display = 'none';
+  document.getElementById('calendar').style.display = 'block';
+  document.getElementById('btnCalendar').classList.add('active');
+  document.getElementById('btnTiles').classList.remove('active');
+};
+
+loadCities();
+</script>
+</body>
+</html>
