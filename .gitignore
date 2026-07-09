@@ -1,0 +1,16 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Sessions/Login-Zustand (Telegram/Instagram) - enthalten sensible Auth-Daten
+telegram_session*
+instagram_session.json
+
+# OS
+.DS_Store
+Thumbs.db
