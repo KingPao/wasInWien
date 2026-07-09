@@ -11,6 +11,10 @@ venv/
 telegram_session*
 instagram_session.json
 
+# IDE
+.idea/
+.vscode/
+
 # OS
 .DS_Store
 Thumbs.db
