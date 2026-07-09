@@ -2,8 +2,8 @@ name: Update Events Data
 
 on:
   schedule:
-    - cron: "0 5 * * *"   # täglich 05:00 UTC (~07:00 MESZ)
-  workflow_dispatch: {}    # manuell über GitHub-UI/Actions-Tab auslösbar
+    - cron: "0 5 * * *"   # taeglich 05:00 UTC (~07:00 MESZ)
+  workflow_dispatch: {}    # manuell ueber GitHub-UI/Actions-Tab ausloesbar
 
 permissions:
   contents: write
@@ -14,17 +14,16 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v6
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
         with:
-          python-version: "3.11"
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+          enable-cache: true
 
       - name: Run collectors
-        run: python main.py --city vienna
-        # Keine Secrets nötig: Reddit läuft über den öffentlichen JSON-Endpoint,
-        # Telegram über die öffentliche Web-Vorschau, beides ohne Login.
+        run: uv run main.py --city vienna
+        # Keine Secrets noetig: Reddit laeuft ueber den oeffentlichen JSON-Endpoint,
+        # Telegram ueber die oeffentliche Web-Vorschau, beides ohne Login.
+        # uv installiert Python + Abhaengigkeiten passend zu pyproject.toml/uv.lock automatisch.
 
       - name: Commit updated data
         run: |

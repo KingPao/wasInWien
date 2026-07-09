@@ -5,6 +5,7 @@ Leichtgewichtiges Event-Aggregator-Tool: kein Server, keine Datenbank. Ein Pytho
 ## Struktur
 
 ```
+pyproject.toml / uv.lock    ← Abhängigkeiten (uv), keine venv-Verwaltung von Hand nötig
 config/cities/vienna.json   ← alle Quellen für Wien, editierbar ohne Code
 config/schema.md            ← wie man eine neue Stadt hinzufügt
 collectors/                 ← ein Modul pro Quellen-Typ (html, rss, reddit, telegram, instagram)
@@ -15,14 +16,16 @@ web/index.html              ← die eigentliche Website (Kacheln + Kalender + St
 
 ## Setup
 
+Das Projekt nutzt [uv](https://docs.astral.sh/uv/) als Paketmanager (`pyproject.toml` + `uv.lock`, kein `requirements.txt` mehr, keine manuelle venv-Verwaltung nötig).
+
 ```bash
-pip install -r requirements.txt
+uv sync
 ```
 
 ## Events sammeln
 
 ```bash
-python main.py --city vienna
+uv run main.py --city vienna
 ```
 
 Schreibt `data/vienna_events.json` neu (überschreibt die alte Version) und aktualisiert `data/cities.json`.
@@ -32,7 +35,7 @@ Schreibt `data/vienna_events.json` neu (überschreibt die alte Version) und aktu
 `web/index.html` lädt `/data/...` als absoluten Pfad (passend zum Vercel-Setup). Für lokale Tests am besten über einen kleinen lokalen Server starten, im Projekt-Root:
 
 ```bash
-python -m http.server
+uv run -m http.server
 ```
 
 Dann im Browser `http://localhost:8000/web/` öffnen. Es liegen Beispieldaten in `data/vienna_events.json`, damit die Seite auch ohne vorherigen Sammel-Lauf etwas zeigt.
@@ -42,7 +45,7 @@ Dann im Browser `http://localhost:8000/web/` öffnen. Es liegen Beispieldaten in
 Lokaler Cron (täglich um 6 Uhr):
 
 ```
-0 6 * * * cd /pfad/zu/was-in-wien && python3 main.py --city vienna
+0 6 * * * cd /pfad/zu/was-in-wien && uv run main.py --city vienna
 ```
 
 Für automatisches Update ohne eigenen Rechner: siehe GitHub Actions unten.
@@ -50,7 +53,7 @@ Für automatisches Update ohne eigenen Rechner: siehe GitHub Actions unten.
 ## Neue Stadt hinzufügen
 
 1. `config/cities/vienna.json` kopieren → `config/cities/graz.json`, Inhalte anpassen.
-2. `python main.py --city graz` ausführen.
+2. `uv run main.py --city graz` ausführen.
 3. Fertig — die Website zeigt „Graz“ automatisch im Dropdown, weil sie `data/cities.json` liest.
 
 ## Deployment auf Vercel
@@ -59,5 +62,4 @@ Die Website ist statisch (kein Server), die Auto-Aktualisierung läuft über Git
 
 1. Repo auf GitHub pushen. Keine Secrets nötig — alle aktiven Collectors laufen ohne Login.
 2. Der Workflow `.github/workflows/update-events.yml` läuft täglich um 5 Uhr UTC, führt `main.py` aus und committed die neue `data/vienna_events.json` zurück ins Repo.
-3. Repo bei vercel.com importieren, Framework Preset auf "Other" lassen (kein Build-Schritt nötig) — `vercel.json` sorgt dafür, dass `/` auf `web/index.html` zeigt und `/data/*.json` normal ausgeliefert wird.
-4. Jeder Commit (auch der automatische vo
+3. Repo bei verce
