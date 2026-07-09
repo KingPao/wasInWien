@@ -11,34 +11,34 @@
       "type": "html",
       "enabled": true,
       "url": "https://www.wien.gv.at/veranstaltungen/",
-      "link_pattern": "^/veranstaltungen/[a-z0-9-]+$"
+      "selectors": { "item": ".event-list-item", "title": ".event-title", "date": ".event-date", "link": "a", "image": "img" }
     },
     {
       "id": "wien_info",
       "name": "wien.info Events",
       "category": "official",
       "type": "html",
-      "enabled": false,
-      "note": "Eventliste wird per JavaScript nachgeladen (Karten-Widget), initiales HTML enthaelt keine Events. Braucht Playwright statt requests.",
-      "url": "https://www.wien.info/en/now-on/events"
+      "enabled": true,
+      "url": "https://www.wien.info/en/now-on/events",
+      "selectors": { "item": ".teaser", "title": ".teaser-title", "date": ".teaser-date", "link": "a", "image": "img" }
     },
     {
       "id": "goodnight_at",
       "name": "Goodnight.at",
       "category": "nightlife",
       "type": "html",
-      "enabled": false,
-      "note": "Eventliste wird per JavaScript nachgeladen, initiales HTML enthaelt keine Events. Braucht Playwright statt requests.",
-      "url": "https://goodnight.at/events"
+      "enabled": true,
+      "url": "https://goodnight.at/events",
+      "selectors": { "item": ".event-card", "title": ".event-card-title", "date": ".event-card-date", "link": "a", "image": "img" }
     },
     {
       "id": "ohschonhell",
       "name": "Oh Schon Hell",
       "category": "clubbing",
       "type": "html",
-      "enabled": false,
-      "note": "Kalender wird per JavaScript nachgeladen, initiales HTML enthaelt keine Events. Braucht Playwright statt requests.",
-      "url": "https://ohschonhell.at/"
+      "enabled": true,
+      "url": "https://ohschonhell.at/",
+      "selectors": { "item": ".event", "title": ".title", "date": ".date", "link": "a", "image": "img" }
     },
     {
       "id": "mqw",
@@ -47,16 +47,16 @@
       "type": "html",
       "enabled": true,
       "url": "https://www.mqw.at/en/program/events/",
-      "link_pattern": "/en/program/.+/\\d{8}-\\d{4}/$"
+      "selectors": { "item": ".event-item", "title": ".event-item-title", "date": ".event-item-date", "link": "a", "image": "img" }
     },
     {
       "id": "khm",
       "name": "KHM Ausstellungen",
       "category": "museum",
       "type": "html",
-      "enabled": false,
-      "note": "Seite ist nur eine Museumsuebersicht ohne strukturierte Terminliste, kein Event-Scraping moeglich.",
-      "url": "https://www.khm.at/ausstellungen"
+      "enabled": true,
+      "url": "https://www.khm.at/ausstellungen",
+      "selectors": { "item": ".exhibition", "title": ".exhibition-title", "date": ".exhibition-date", "link": "a", "image": "img" }
     },
     {
       "id": "meinbezirk_wien",
@@ -65,7 +65,7 @@
       "type": "html",
       "enabled": true,
       "url": "https://www.meinbezirk.at/event/wien",
-      "link_pattern": "^/event/[a-z-]+/c-[a-z-]+/[a-z0-9-]+_e\\d+"
+      "selectors": { "item": ".event-teaser", "title": ".event-teaser-title", "date": ".event-teaser-date", "link": "a", "image": "img" }
     },
     {
       "id": "r_vienna",
