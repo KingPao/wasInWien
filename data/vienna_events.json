@@ -1,62 +1,6 @@
 {
   "city": "vienna",
   "label": "Wien",
-  "generated_at": "2026-07-09T15:40:10.720219",
-  "events": [
-    {
-      "title": "Kino wie noch nie: Sommerklassiker",
-      "source_id": "demo",
-      "source_name": "Filmarchiv Augarten",
-      "category": "kino",
-      "link": "https://www.filmarchiv.at/kino/kino-wie-noch-nie",
-      "date": "2026-07-11T11:40:10.720219",
-      "location": "Augarten",
-      "image": null,
-      "needs_review": false
-    },
-    {
-      "title": "Techno Night",
-      "source_id": "demo",
-      "source_name": "Grelle Forelle",
-      "category": "clubbing",
-      "link": "https://www.grelleforelle.com/",
-      "date": "2026-07-12T14:40:10.720219",
-      "location": "Grelle Forelle",
-      "image": null,
-      "needs_review": false
-    },
-    {
-      "title": "Ausstellungseröffnung Canaletto & Bellotto",
-      "source_id": "demo",
-      "source_name": "KHM",
-      "category": "museum",
-      "link": "https://www.khm.at/ausstellungen",
-      "date": "2026-07-14T15:40:10.720219",
-      "location": "KHM",
-      "image": null,
-      "needs_review": false
-    },
-    {
-      "title": "Flohmarkt am Naschmarkt",
-      "source_id": "demo",
-      "source_name": "meinbezirk.at",
-      "category": "bezirk",
-      "link": "https://www.meinbezirk.at/event/wien",
-      "date": "2026-07-12T23:40:10.720219",
-      "location": "Naschmarkt",
-      "image": null,
-      "needs_review": false
-    },
-    {
-      "title": "Insta-Post: Pop-up Rooftop Party (Datum unklar)",
-      "source_id": "demo",
-      "source_name": "events_in_vienna",
-      "category": "community",
-      "link": "https://www.instagram.com/events_in_vienna/",
-      "date": null,
-      "location": null,
-      "image": null,
-      "needs_review": true
-    }
-  ]
+  "generated_at": "2026-07-09T15:01:05.428900",
+  "events": []
 }
