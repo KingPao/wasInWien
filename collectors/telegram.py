@@ -1,10 +1,10 @@
-"""Telegram-Collector OHNE Account: nutzt die öffentliche Web-Vorschau
-https://t.me/s/<channel>, die für öffentliche Channels (nicht: private Gruppen)
-ohne Login als normales HTML ausgeliefert wird. Kein API-Key nötig.
+"""Telegram-Collector OHNE Account: nutzt die oeffentliche Web-Vorschau
+https://t.me/s/<channel>, die fuer oeffentliche Channels (nicht: private Gruppen)
+ohne Login als normales HTML ausgeliefert wird. Kein API-Key noetig.
 
-Einschränkung: funktioniert nur für Channels mit öffentlichem Usernamen
-(t.me/<name>). Private/geschlossene Gruppen ohne öffentlichen Link sind
-darüber nicht erreichbar.
+Einschraenkung: funktioniert nur fuer Channels mit oeffentlichem Usernamen
+(t.me/<name>). Private/geschlossene Gruppen ohne oeffentlichen Link sind
+darueber nicht erreichbar.
 """
 import logging
 import re
@@ -28,7 +28,7 @@ def collect(source: dict) -> list[Event]:
         resp = requests.get(url, headers=HEADERS, timeout=20)
         resp.raise_for_status()
     except Exception as e:
-        logger.warning("Telegram collector failed für %s: %s", source["id"], e)
+        logger.warning("Telegram collector failed for %s: %s", source["id"], e)
         return []
 
     soup = BeautifulSoup(resp.text, "html.parser")
@@ -49,11 +49,14 @@ def collect(source: dict) -> list[Event]:
         link = link_el.get("href") if link_el and link_el.get("href") else url
 
         title = text.split("\n")[0][:120]
-        events.append(Event(
+        event = Event(
             title=title,
             source_id=source["id"],
             source_name=source["name"],
             category=source.get("category", "community"),
             link=link,
             date=date_iso,
- 
+            needs_review=True,
+        )
+        events.append(event)
+    return events
