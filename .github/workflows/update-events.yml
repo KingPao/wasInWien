@@ -1,0 +1,35 @@
+name: Update Events Data
+
+on:
+  schedule:
+    - cron: "0 5 * * *"   # täglich 05:00 UTC (~07:00 MESZ)
+  workflow_dispatch: {}    # manuell über GitHub-UI/Actions-Tab auslösbar
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run collectors
+        run: python main.py --city vienna
+        # Keine Secrets nötig: Reddit läuft über den öffentlichen JSON-Endpoint,
+        # Telegram über die öffentliche Web-Vorschau, beides ohne Login.
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git diff --quiet --cached || git commit -m "chore: update events data [skip ci]"
+          git push
