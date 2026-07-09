@@ -1,0 +1,112 @@
+{
+  "city": "vienna",
+  "label": "Wien",
+  "timezone": "Europe/Vienna",
+  "window_days": 30,
+  "sources": [
+    {
+      "id": "wien_gv_at",
+      "name": "Stadt Wien Veranstaltungen",
+      "category": "official",
+      "type": "html",
+      "enabled": true,
+      "url": "https://www.wien.gv.at/veranstaltungen/",
+      "selectors": { "item": ".event-list-item", "title": ".event-title", "date": ".event-date", "link": "a", "image": "img" }
+    },
+    {
+      "id": "wien_info",
+      "name": "wien.info Events",
+      "category": "official",
+      "type": "html",
+      "enabled": true,
+      "url": "https://www.wien.info/en/now-on/events",
+      "selectors": { "item": ".teaser", "title": ".teaser-title", "date": ".teaser-date", "link": "a", "image": "img" }
+    },
+    {
+      "id": "goodnight_at",
+      "name": "Goodnight.at",
+      "category": "nightlife",
+      "type": "html",
+      "enabled": true,
+      "url": "https://goodnight.at/events",
+      "selectors": { "item": ".event-card", "title": ".event-card-title", "date": ".event-card-date", "link": "a", "image": "img" }
+    },
+    {
+      "id": "ohschonhell",
+      "name": "Oh Schon Hell",
+      "category": "clubbing",
+      "type": "html",
+      "enabled": true,
+      "url": "https://ohschonhell.at/",
+      "selectors": { "item": ".event", "title": ".title", "date": ".date", "link": "a", "image": "img" }
+    },
+    {
+      "id": "mqw",
+      "name": "MuseumsQuartier Wien",
+      "category": "museum",
+      "type": "html",
+      "enabled": true,
+      "url": "https://www.mqw.at/en/program/events/",
+      "selectors": { "item": ".event-item", "title": ".event-item-title", "date": ".event-item-date", "link": "a", "image": "img" }
+    },
+    {
+      "id": "khm",
+      "name": "KHM Ausstellungen",
+      "category": "museum",
+      "type": "html",
+      "enabled": true,
+      "url": "https://www.khm.at/ausstellungen",
+      "selectors": { "item": ".exhibition", "title": ".exhibition-title", "date": ".exhibition-date", "link": "a", "image": "img" }
+    },
+    {
+      "id": "meinbezirk_wien",
+      "name": "meinbezirk.at Wien",
+      "category": "bezirk",
+      "type": "html",
+      "enabled": true,
+      "url": "https://www.meinbezirk.at/event/wien",
+      "selectors": { "item": ".event-teaser", "title": ".event-teaser-title", "date": ".event-teaser-date", "link": "a", "image": "img" }
+    },
+    {
+      "id": "r_vienna",
+      "name": "Reddit r/vienna",
+      "category": "community",
+      "type": "reddit",
+      "enabled": true,
+      "subreddit": "vienna",
+      "keywords": ["event", "party", "concert", "exhibition", "market", "festival", "openair", "open air"]
+    },
+    {
+      "id": "czc_vienna",
+      "name": "talkin' Vienna (Telegram)",
+      "category": "community",
+      "type": "telegram",
+      "enabled": true,
+      "channel": "czc_vienna"
+    },
+    {
+      "id": "events_in_vienna_ig",
+      "name": "Events In Vienna (Instagram)",
+      "category": "community",
+      "type": "instagram",
+      "enabled": false,
+      "handle": "events_in_vienna"
+    },
+    {
+      "id": "rainbowtime_vienna_ig",
+      "name": "Rainbowtime Vienna (Instagram)",
+      "category": "queer",
+      "type": "instagram",
+      "enabled": false,
+      "handle": "rainbowtime.vienna"
+    },
+    {
+      "id": "1000things_ig",
+      "name": "1000things to do in Vienna (Instagram)",
+      "category": "community",
+      "type": "instagram",
+      "enabled": false,
+      "handle": "1000thingsinvienna"
+    }
+  ]
+}
