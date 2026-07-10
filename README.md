@@ -40,15 +40,15 @@ uv run -m http.server
 
 Dann im Browser `http://localhost:8000/web/` oeffnen. Es liegen Beispieldaten in `data/vienna_events.json`, damit die Seite auch ohne vorherigen Sammel-Lauf etwas zeigt.
 
-## Taegliches Auto-Update
+## Woechentliches Auto-Update
 
-Lokaler Cron (taeglich um 6 Uhr):
+Lokaler Cron (jeden Montag um 6 Uhr):
 
 ```
-0 6 * * * cd /pfad/zu/was-in-wien && uv run main.py --city vienna
+0 6 * * 1 cd /pfad/zu/was-in-wien && uv run main.py --city vienna
 ```
 
-Fuer automatisches Update ohne eigenen Rechner: siehe GitHub Actions unten.
+Fuer automatisches Update ohne eigenen Rechner: siehe GitHub Actions unten. Da nur noch 1x/Woche gescraped wird, deckt die breitere Quellenliste (siehe "Bekannte Grenzen") die 30-Tage-Fenster trotzdem gut ab.
 
 ## Neue Stadt hinzufuegen
 
@@ -61,7 +61,7 @@ Fuer automatisches Update ohne eigenen Rechner: siehe GitHub Actions unten.
 Die Website ist statisch (kein Server), die Auto-Aktualisierung laeuft ueber GitHub Actions statt ueber Vercel selbst -- Vercel-Deployments koennen keine Dateien dauerhaft ueberschreiben.
 
 1. Repo auf GitHub pushen. Keine Secrets noetig -- alle aktiven Collectors laufen ohne Login.
-2. Der Workflow `.github/workflows/update-events.yml` laeuft taeglich um 5 Uhr UTC, fuehrt `main.py` aus und committed die neue `data/vienna_events.json` zurueck ins Repo.
+2. Der Workflow `.github/workflows/update-events.yml` laeuft woechentlich (Montag) um 5 Uhr UTC, fuehrt `main.py` aus und committed die neue `data/vienna_events.json` zurueck ins Repo.
 3. Repo bei vercel.com importieren, Framework Preset auf "Other" lassen (kein Build-Schritt noetig) -- `vercel.json` sorgt dafuer, dass `/` auf `web/index.html` zeigt und `/data/*.json` normal ausgeliefert wird.
 4. Jeder Commit (auch der automatische vom Workflow) triggert ein neues Vercel-Deployment -> die Website zeigt danach automatisch die aktuellen Events.
 
