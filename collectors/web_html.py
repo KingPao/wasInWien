@@ -16,6 +16,7 @@ dafuer braeuchte man einen echten Browser (Playwright), was ausserhalb des
 "kein Server"-Designs dieses Projekts liegt. Solche Quellen sind in der Config
 bewusst enabled: false.
 """
+import datetime
 import logging
 import re
 
@@ -60,6 +61,28 @@ def _try_parse_date(text):
         except Exception:
             continue
     return None
+
+
+NO_YEAR_DATE_RE = re.compile(r"(\d{1,2})\.(\d{1,2})\.,?\s*(\d{1,2})[:.](\d{2})")
+
+
+def _try_parse_date_no_year(match):
+    # Manche Seiten (z.B. filmarchiv.at) zeigen Termine ohne Jahreszahl,
+    # z.B. "Fr, 10.7., 21:30". Jahr wird anhand des heutigen Datums geraten:
+    # liegt das Ergebnis mit aktuellem Jahr mehr als 30 Tage in der Vergangenheit,
+    # wird das naechste Jahr angenommen (z.B. Jahreswechsel-Randfall).
+    day, month, hour, minute = (int(g) for g in match.groups())
+    now = datetime.datetime.now()
+    try:
+        candidate = datetime.datetime(now.year, month, day, hour, minute)
+    except ValueError:
+        return None
+    if (now - candidate).days > 30:
+        try:
+            candidate = datetime.datetime(now.year + 1, month, day, hour, minute)
+        except ValueError:
+            return None
+    return candidate.isoformat()
 
 
 def _date_from_url(href):
@@ -119,6 +142,11 @@ def _collect_by_link_pattern(soup, source, url):
                 m = re.search(r"\d{1,2}\.\s*[A-Za-zäöüÄÖÜ]+\s*\d{4}(?:\s*um\s*\d{1,2}[:.]\d{2})?", block_text)
                 if m:
                     date_iso = _try_parse_date(m.group(0).replace(" um ", " "))
+            if not date_iso:
+                # Datum ohne Jahreszahl, z.B. "10.7., 21:30" (filmarchiv.at)
+                m = NO_YEAR_DATE_RE.search(block_text)
+                if m:
+                    date_iso = _try_parse_date_no_year(m)
 
         image = None
         img_el = block.find("img") if block else None

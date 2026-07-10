@@ -41,6 +41,24 @@
       "url": "https://ohschonhell.at/"
     },
     {
+      "id": "volxkino",
+      "name": "VOLXkino / KARLSkino (Open-Air-Kino)",
+      "category": "cinema",
+      "type": "html",
+      "enabled": true,
+      "url": "https://www.volxkino.at/",
+      "link_pattern": "^/event-details/[a-z0-9-]+$"
+    },
+    {
+      "id": "filmarchiv_kino",
+      "name": "Filmarchiv Austria - Kino wie noch nie (Open Air) & METRO",
+      "category": "cinema",
+      "type": "html",
+      "enabled": true,
+      "url": "https://www.filmarchiv.at/",
+      "link_pattern": "^/de/kino/film/[a-z0-9_]+$"
+    },
+    {
       "id": "mqw",
       "name": "MuseumsQuartier Wien",
       "category": "museum",
