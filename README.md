@@ -78,6 +78,7 @@ Bewusste Design-Entscheidung: kein Collector braucht Zugangsdaten oder eine `.en
 ## Bekannte Grenzen
 
 - **Aktiv & verifiziert** (Link-Pattern statt CSS-Selektoren, robuster gegen Layout-Aenderungen): wien.gv.at, mqw.at (Datum steht direkt in der URL), meinbezirk.at.
+- **Clubs (Flex, Fluc)**: die Clubs selbst (flex.at, fluc.at) sind fuer diesen Sandbox-Kontext nicht zuverlaessig erreichbar bzw. teils JS-lastig. Beide haben aber echte, datierte Terminlisten auf **wasmachma.at** (einem groesseren oesterreichischen Event-Aggregator), server-seitig als Tabelle gerendert -- deshalb ueber `wasmachma.at/veranstaltungsort/flex` bzw. `.../flucc` eingebunden. Der Link-Pattern-Collector wurde dafuer erweitert, damit er Datum/Bild auch aus Tabellenzeilen (`<tr>`) statt nur `<article>/<li>/<div>` liest.
 - **Deaktiviert, weil die Eventliste per JavaScript nachgeladen wird** (plain `requests`/BeautifulSoup sieht nur das initiale, leere HTML -- braeuchte Playwright): wien.info, goodnight.at, ohschonhell.at.
 - **Deaktiviert, weil keine strukturierte Terminliste vorhanden ist**: khm.at/ausstellungen (nur Museumsuebersicht).
 - Reddit/Telegram liefern kein strukturiertes Event-Datum -- deshalb `needs_review: true`.

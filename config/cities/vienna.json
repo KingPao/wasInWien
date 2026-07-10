@@ -68,6 +68,24 @@
       "link_pattern": "^/event/[a-z-]+/c-[a-z-]+/[a-z0-9-]+_e\\d+"
     },
     {
+      "id": "flex_wien",
+      "name": "Flex (via wasmachma.at)",
+      "category": "clubbing",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/flex",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "flucc_wien",
+      "name": "Fluc / Flucc (via wasmachma.at)",
+      "category": "clubbing",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/flucc",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
       "id": "r_vienna",
       "name": "Reddit r/vienna",
       "category": "community",

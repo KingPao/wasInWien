@@ -107,7 +107,7 @@ def _collect_by_link_pattern(soup, source, url):
 
         date_iso = _date_from_url(href)
 
-        block = a.find_parent(["article", "li", "div"]) or a.parent
+        block = a.find_parent(["article", "li", "div", "tr"]) or a.parent
         block_text = block.get_text(" ", strip=True) if block else ""
 
         if not date_iso:
