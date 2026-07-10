@@ -158,6 +158,132 @@
       "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
     },
     {
+      "id": "wasmachma_wien_events",
+      "name": "wasmachma.at - alle Events Wien",
+      "category": "official",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/bundesland/wien/events",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "peterskirche",
+      "name": "Peterskirche (via wasmachma.at)",
+      "category": "museum",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/peterskirche",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "ronacher",
+      "name": "Ronacher (via wasmachma.at)",
+      "category": "museum",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/ronacher",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "stadtsaal_wien",
+      "name": "STADTSAAL (via wasmachma.at)",
+      "category": "museum",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/stadtsaal-wien",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "haus_der_musik_wien",
+      "name": "Haus der Musik Wien Innenhof (via wasmachma.at)",
+      "category": "museum",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/haus-der-musik-wien",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "spanische_hofreitschule",
+      "name": "Spanische Hofreitschule Wien (via wasmachma.at)",
+      "category": "museum",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/spanische-hofreitschule-wien",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "raimund_theater",
+      "name": "Raimund Theater (via wasmachma.at)",
+      "category": "museum",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/raimund-theater",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "kabarett_niedermair",
+      "name": "Kabarett Niedermair (via wasmachma.at)",
+      "category": "museum",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/kabarett-niedermair",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "kulisse",
+      "name": "Kulisse (via wasmachma.at)",
+      "category": "museum",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/kulisse",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "karlskirche_wien",
+      "name": "Karlskirche (via wasmachma.at)",
+      "category": "museum",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/karlskirche-wien",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "rabenhof_theater",
+      "name": "Rabenhof Theater (via wasmachma.at)",
+      "category": "museum",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/rabenhof-theater",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "orpheum_wien",
+      "name": "Orpheum Wien (via wasmachma.at)",
+      "category": "museum",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/orpheum-wien",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "musikverein_wien",
+      "name": "Musikverein Wien (via wasmachma.at)",
+      "category": "museum",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/musikverein-wien",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "peterskirche_krypta",
+      "name": "Peterskirche Wien Krypta (via wasmachma.at)",
+      "category": "museum",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/peterskirche-krypta",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
       "id": "r_vienna",
       "name": "Reddit r/vienna",
       "category": "community",
