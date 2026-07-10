@@ -86,6 +86,78 @@
       "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
     },
     {
+      "id": "grelle_forelle",
+      "name": "Grelle Forelle (via wasmachma.at)",
+      "category": "clubbing",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/grelle-forelle",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "das_werk",
+      "name": "Das Werk (via wasmachma.at)",
+      "category": "clubbing",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/das-werk",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "b72",
+      "name": "B72 (via wasmachma.at)",
+      "category": "clubbing",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/b72",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "wuk_wien",
+      "name": "WUK (via wasmachma.at)",
+      "category": "clubbing",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/wuk",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "celeste",
+      "name": "Celeste (via wasmachma.at)",
+      "category": "clubbing",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/celeste",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "szene_wien",
+      "name": "Szene Wien (via wasmachma.at)",
+      "category": "clubbing",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/szene-wien",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "arena_wien",
+      "name": "Arena Wien (via wasmachma.at)",
+      "category": "clubbing",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/arena-wien",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
+      "id": "globe_wien",
+      "name": "Globe Wien - Marx Halle (via wasmachma.at)",
+      "category": "clubbing",
+      "type": "html",
+      "enabled": true,
+      "url": "https://wasmachma.at/veranstaltungsort/globe-wien",
+      "link_pattern": "^/event/[a-z0-9-]+/[a-z0-9-]+-\\d+$"
+    },
+    {
       "id": "r_vienna",
       "name": "Reddit r/vienna",
       "category": "community",
